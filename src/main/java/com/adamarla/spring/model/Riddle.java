@@ -21,7 +21,7 @@ public class Riddle extends Stockable {
     @SequenceGenerator(name = "riddles_generator", sequenceName = "riddles_id_seq")
     @Override
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     @Column(name = "type")

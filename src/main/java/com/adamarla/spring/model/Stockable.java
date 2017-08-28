@@ -17,7 +17,7 @@ public abstract class Stockable {
     @Id
     protected int id;
 
-    public abstract int getId();
+    public int getId() { return id; }
 
     @Column(name = "chapter_id")
     protected Integer chapterId;

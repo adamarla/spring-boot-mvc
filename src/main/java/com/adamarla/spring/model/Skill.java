@@ -21,7 +21,7 @@ public class Skill extends Stockable {
     @SequenceGenerator(name = "skills_generator", sequenceName = "skills_id_seq")
     @Override
     public int getId() {
-        return id;
+        return super.getId();
     }
 
 

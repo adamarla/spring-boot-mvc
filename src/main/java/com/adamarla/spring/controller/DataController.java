@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by adamarla on 8/14/17.
@@ -49,8 +48,8 @@ public class DataController {
     }
 
     @RequestMapping(value = "/skus")
-    public List<SkuReturnable> findAllSkus() {
-        return StreamSupport.stream(skuRepo.findAll().spliterator(), false)
+    public List<SkuReturnable> findAllSkus(@RequestParam("last") int last) {
+        return skuRepo.findByIdGreaterThan(last).stream()
                 .filter(sku -> sku.getStockable().getChapterId() != null)
                 .map(sku -> {
                     Stockable stockable = sku.getStockable();
