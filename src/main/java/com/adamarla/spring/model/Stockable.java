@@ -2,7 +2,6 @@ package com.adamarla.spring.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -16,15 +15,12 @@ import javax.persistence.InheritanceType;
 public abstract class Stockable {
 
     @Id
-    @GeneratedValue
     protected int id;
+
+    public abstract int getId();
 
     @Column(name = "chapter_id")
     protected Integer chapterId;
-
-    public int getId() {
-        return id;
-    }
 
     public Integer getChapterId() {
         return chapterId;

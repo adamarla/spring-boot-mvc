@@ -2,6 +2,10 @@ package com.adamarla.spring.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -12,18 +16,26 @@ import javax.persistence.Table;
 @Table(name = "riddles")
 public class Riddle extends Stockable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "riddles_generator")
+    @SequenceGenerator(name = "riddles_generator", sequenceName = "riddles_id_seq")
+    @Override
+    public int getId() {
+        return id;
+    }
+
     @Column(name = "type")
-    private String riddleType;
+    private String type;
 
     @Column(name = "original_id")
     private int originalId;
 
-    public String getRiddleType() {
-        return riddleType;
+    public String getType() {
+        return type;
     }
 
-    public void setRiddleType(String riddleType) {
-        this.riddleType = riddleType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getOriginalId() {

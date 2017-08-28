@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +18,8 @@ import javax.persistence.Table;
 public class Sku {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skus_generator")
+    @SequenceGenerator(name = "skus_generator", sequenceName = "skus_id_seq")
     private int id;
 
     @OneToOne
