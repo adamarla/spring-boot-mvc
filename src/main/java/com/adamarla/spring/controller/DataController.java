@@ -1,18 +1,15 @@
 package com.adamarla.spring.controller;
 
 import com.adamarla.spring.model.Chapter;
-import com.adamarla.spring.model.DemoModel;
 import com.adamarla.spring.model.Skill;
 import com.adamarla.spring.model.Stockable;
 import com.adamarla.spring.repo.ChaptersRepo;
-import com.adamarla.spring.repo.DemoRepo;
 import com.adamarla.spring.repo.SearchRepo;
 import com.adamarla.spring.repo.SkillRepo;
 import com.adamarla.spring.repo.SkuRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,16 +25,14 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/data")
 public class DataController {
 
-    DemoRepo repository;
     ChaptersRepo chaptersRepo;
     SearchRepo searchRepo;
     SkillRepo skillRepo;
     SkuRepo skuRepo;
 
     @Autowired
-    public DataController(DemoRepo repository, ChaptersRepo chaptersRepo, SearchRepo searchRepo,
+    public DataController(ChaptersRepo chaptersRepo, SearchRepo searchRepo,
                           SkillRepo skillRepo, SkuRepo skuRepo) {
-        this.repository = repository;
         this.chaptersRepo = chaptersRepo;
         this.searchRepo = searchRepo;
         this.skillRepo = skillRepo;
@@ -46,11 +41,6 @@ public class DataController {
 
     public List<String> findMatches(@RequestParam("search_string") String searchString) {
         return searchRepo.findMatches(searchString);
-    }
-
-    @RequestMapping(value = {"", "/"})
-    public Iterable<DemoModel> findAll() {
-        return repository.findAll();
     }
 
     @RequestMapping(value = "/skills")
@@ -75,25 +65,6 @@ public class DataController {
     @RequestMapping(value = "/chapters")
     public Iterable<Chapter> findAllChapters() {
         return chaptersRepo.findAll();
-    }
-
-    @RequestMapping(value = "/byId", method = RequestMethod.GET)
-    public DemoModel findById(@RequestParam("id") long id) {
-        return repository.findOne(id);
-    }
-
-    @RequestMapping(value = "/byLname", method = RequestMethod.GET)
-    public List<DemoModel> findByLastName(String lname) {
-        return repository.findByLastName(lname);
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public DemoModel create(@RequestParam("fname") String fname,
-                            @RequestParam("lname") String lname) {
-        DemoModel dm = new DemoModel();
-        dm.setFirstName(fname);
-        dm.setLastName(lname);
-        return repository.save(dm);
     }
 
 }
